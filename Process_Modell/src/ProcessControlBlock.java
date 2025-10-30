@@ -31,7 +31,7 @@ public class ProcessControlBlock {
         this.metadata = new ProcessMetadata(processID, user.getUserID(), user.getGroupID()); // The init process is its own parent
 
         ProcessThread mainThread = new ProcessThread(0);
-        this.threads = new HashMap<Integer, ProcessThread>() {{
+        this.threads = new HashMap<>() {{
             put(0, mainThread);
         }};
 
@@ -45,12 +45,22 @@ public class ProcessControlBlock {
         this.processID = processID;
         this.status = ProcessStatus.READY;
 
-        this.heap = oldProcess.heap;
+        this.heap = oldProcess.heap.clone();
 
         this.metadata = new ProcessMetadata(oldProcess.metadata.getParentProcessID(), oldProcess.metadata.getUserID(), oldProcess.metadata.getGroupID());
-        this.threads = oldProcess.threads;
-        this.addressSpace = oldProcess.addressSpace;
-        this.files = oldProcess.files;
+
+        try {
+            this.threads = new HashMap<>();
+            for (Map.Entry<Integer, ProcessThread> e : oldProcess.threads.entrySet()) {
+                ProcessThread original = e.getValue();
+                ProcessThread cloned = (ProcessThread) original.clone();
+                this.threads.put(e.getKey(), cloned);
+            }
+            this.addressSpace = (ProcessAddressSpace) oldProcess.addressSpace.clone();
+            this.files = (ProcessFiles) oldProcess.files.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new RuntimeException(e);
+        }
 
         System.out.println("Duplicating process with PID=" + oldProcess.processID + " as PID=" + processID);
     }
@@ -67,9 +77,7 @@ public class ProcessControlBlock {
         status = ProcessStatus.RUNNING;
     }
 
-    public void block() {
-        status = ProcessStatus.BLOCKED;
-    }
+    public void block() { status = ProcessStatus.BLOCKED; }
 
     public void stop() {
         // Do cleaning up

@@ -1,4 +1,4 @@
-public class ProcessFiles {
+public class ProcessFiles implements Cloneable {
     private String stdInput;
     private String stdOutput;
     private String stdError;
@@ -20,5 +20,10 @@ public class ProcessFiles {
 
     public String getExecutable() {
         return executable;
+    }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 }

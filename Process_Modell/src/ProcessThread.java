@@ -1,6 +1,6 @@
 import java.util.Stack;
 
-public class ProcessThread {
+public class ProcessThread implements Cloneable {
     private int threadID;
     public enum ThreadStatus {
         READY,
@@ -24,5 +24,16 @@ public class ProcessThread {
     public void ready() {
         // Load registers into CPU
         this.status = ThreadStatus.READY;
+    }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        ProcessThread copy = (ProcessThread) super.clone();
+
+        copy.stack = new Stack<>();
+        copy.stack.addAll(this.stack);
+        copy.registers = this.registers.clone();
+
+        return copy;
     }
 }

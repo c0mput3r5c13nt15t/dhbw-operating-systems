@@ -13,14 +13,14 @@ public class BS implements IBSProcess {
     static {
         System.out.println("Initializing BS...");
         User root = new User("root", 1000, 1000);
-        users = new HashMap<Integer, User>() {{
+        users = new HashMap<>() {{
             put(root.getUserID(), root);
         }};
         currentUserID = root.getUserID();
 
         ProcessControlBlock init = new ProcessControlBlock(0, users.get(currentUserID), "init");
 
-        processTable = new HashMap<Integer, ProcessControlBlock>() {{
+        processTable = new HashMap<>() {{
             put(init.getProcessID(), init);
         }};
 
@@ -42,7 +42,7 @@ public class BS implements IBSProcess {
 
     private static void releaseControl() {
         // BS releases CPU
-        // BS calls scheduler -> sets process from readyQueue to running
+        // BS calls scheduler -> set process from readyQueue to running
 
         runNextProcess();
     }
@@ -86,6 +86,9 @@ public class BS implements IBSProcess {
         newProcess.ready();
 
         readyQueue.add(newProcess.getProcessID());
+
+        System.out.println(newProcess);
+        System.out.println(oldProcess);
 
         releaseControl();
 
