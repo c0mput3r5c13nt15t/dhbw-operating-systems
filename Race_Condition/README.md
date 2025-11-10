@@ -1,4 +1,4 @@
-# Aufgabe 3.6: Java Threads / Race Conditions
+# Java Threads / Race Conditions
 
 - Erstellen Sie eine Klasse, die als Container für zwei globale Variablen j und k dient (static). Initialisieren Sie die Werte j=0, k=5.
 - Erstellen Sie eine Thread-Klasse Race, die in der run()-Methode 10-mal eine Schleife durchläuft, in der zuerst den Wert j gesetzt wird und anschließend die Operation k=k+j durchführt wird.

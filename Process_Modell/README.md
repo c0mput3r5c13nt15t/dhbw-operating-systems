@@ -1,4 +1,6 @@
-# Aufgabe 3.3
+# Java Process Modell
+
+## Aufgabe 3.3
 
 In der Vorlesung wurde das Datenmodell für Prozesse besprochen.
 Obwohl wir wissen, dass Betriebssysteme in C geschrieben sind,
@@ -14,7 +16,7 @@ für den Prozess-Kontroll-Block (PCB) erstellen. Dieses Modell soll in späteren
   - In der Klassen Processfiles verwenden Sie Platzhalter für StdInput, StdOutput, StdError und die Executable Datei.
 - Implementieren Sie ein einfaches Beispiel, dass ein PCB mit Beispieldaten erstellt.
 
-# Aufgabe 3.5
+## Aufgabe 3.5
 
 Verwenden Sie nun das JAVA Modell aus Aufgabe 2.4. Erweitern Sie die Implementierung um Prozesse einfach verwalten zu können.
 
